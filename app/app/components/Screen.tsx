@@ -140,8 +140,8 @@ function useAutoPreset(props: AutoScreenProps) {
 function ScreenWithoutScrolling(props: ScreenProps) {
   const { style, contentContainerStyle, children } = props
   return (
-    <View style={[$outerStyle, style]}>
-      <View style={[$innerStyle, contentContainerStyle]}>{children}</View>
+    <View style={[outerStyle, style]}>
+      <View style={[innerStyle, contentContainerStyle]}>{children}</View>
     </View>
   )
 }
@@ -175,9 +175,9 @@ function ScreenWithScrolling(props: ScreenProps) {
         onContentSizeChange(w, h)
         ScrollViewProps?.onContentSizeChange?.(w, h)
       }}
-      style={[$outerStyle, ScrollViewProps?.style, style]}
+      style={[outerStyle, ScrollViewProps?.style, style]}
       contentContainerStyle={[
-        $innerStyle,
+        innerStyle,
         ScrollViewProps?.contentContainerStyle,
         contentContainerStyle,
       ]}
@@ -197,17 +197,17 @@ export function Screen(props: ScreenProps) {
     statusBarStyle = "dark",
   } = props
 
-  const $containerInsets = useSafeAreaInsetsStyle(safeAreaEdges)
+  const containerInsets = useSafeAreaInsetsStyle(safeAreaEdges)
 
   return (
-    <View style={[$containerStyle, { backgroundColor }, $containerInsets]}>
+    <View style={[containerStyle, { backgroundColor }, containerInsets]}>
       <StatusBar style={statusBarStyle} {...StatusBarProps} />
 
       <KeyboardAvoidingView
         behavior={isIos ? "padding" : undefined}
         keyboardVerticalOffset={keyboardOffset}
         {...KeyboardAvoidingViewProps}
-        style={[$keyboardAvoidingViewStyle, KeyboardAvoidingViewProps?.style]}
+        style={[keyboardAvoidingViewStyle, KeyboardAvoidingViewProps?.style]}
       >
         {isNonScrolling(props.preset) ? (
           <ScreenWithoutScrolling {...props} />
@@ -219,23 +219,23 @@ export function Screen(props: ScreenProps) {
   )
 }
 
-const $containerStyle: ViewStyle = {
+const containerStyle: ViewStyle = {
   flex: 1,
   height: "100%",
   width: "100%",
 }
 
-const $keyboardAvoidingViewStyle: ViewStyle = {
+const keyboardAvoidingViewStyle: ViewStyle = {
   flex: 1,
 }
 
-const $outerStyle: ViewStyle = {
+const outerStyle: ViewStyle = {
   flex: 1,
   height: "100%",
   width: "100%",
 }
 
-const $innerStyle: ViewStyle = {
+const innerStyle: ViewStyle = {
   justifyContent: "flex-start",
   alignItems: "stretch",
 }

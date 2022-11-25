@@ -130,12 +130,12 @@ export function EmptyState(props: EmptyStateProps) {
     headingTx,
     headingTxOptions,
     imageSource = preset?.imageSource,
-    style: $containerStyleOverride,
-    buttonStyle: $buttonStyleOverride,
-    buttonTextStyle: $buttonTextStyleOverride,
-    contentStyle: $contentStyleOverride,
-    headingStyle: $headingStyleOverride,
-    imageStyle: $imageStyleOverride,
+    style: containerStyleOverride,
+    buttonStyle: buttonStyleOverride,
+    buttonTextStyle: buttonTextStyleOverride,
+    contentStyle: contentStyleOverride,
+    headingStyle: headingStyleOverride,
+    imageStyle: imageStyleOverride,
     ButtonProps,
     ContentTextProps,
     HeadingTextProps,
@@ -147,36 +147,36 @@ export function EmptyState(props: EmptyStateProps) {
   const isContentPresent = !!(content || contentTx)
   const isButtonPresent = !!(button || buttonTx)
 
-  const $containerStyles = [$containerStyleOverride]
-  const $imageStyles = [
-    $image,
+  const containerStyles = [containerStyleOverride]
+  const imageStyles = [
+    image,
     (isHeadingPresent || isContentPresent || isButtonPresent) && { marginBottom: spacing.micro },
-    $imageStyleOverride,
+    imageStyleOverride,
     ImageProps?.style,
   ]
-  const $headingStyles = [
-    $heading,
+  const headingStyles = [
+    heading,
     isImagePresent && { marginTop: spacing.micro },
     (isContentPresent || isButtonPresent) && { marginBottom: spacing.micro },
-    $headingStyleOverride,
+    headingStyleOverride,
     HeadingTextProps?.style,
   ]
-  const $contentStyles = [
-    $content,
+  const contentStyles = [
+    content,
     (isImagePresent || isHeadingPresent) && { marginTop: spacing.micro },
     isButtonPresent && { marginBottom: spacing.micro },
-    $contentStyleOverride,
+    contentStyleOverride,
     ContentTextProps?.style,
   ]
-  const $buttonStyles = [
+  const buttonStyles = [
     (isImagePresent || isHeadingPresent || isContentPresent) && { marginTop: spacing.extraLarge },
-    $buttonStyleOverride,
+    buttonStyleOverride,
     ButtonProps?.style,
   ]
 
   return (
-    <View style={$containerStyles}>
-      {isImagePresent && <Image source={imageSource} {...ImageProps} style={$imageStyles} />}
+    <View style={containerStyles}>
+      {isImagePresent && <Image source={imageSource} {...ImageProps} style={imageStyles} />}
 
       {isHeadingPresent && (
         <Text
@@ -185,7 +185,7 @@ export function EmptyState(props: EmptyStateProps) {
           tx={headingTx}
           txOptions={headingTxOptions}
           {...HeadingTextProps}
-          style={$headingStyles}
+          style={headingStyles}
         />
       )}
 
@@ -195,7 +195,7 @@ export function EmptyState(props: EmptyStateProps) {
           tx={contentTx}
           txOptions={contentTxOptions}
           {...ContentTextProps}
-          style={$contentStyles}
+          style={contentStyles}
         />
       )}
 
@@ -205,15 +205,15 @@ export function EmptyState(props: EmptyStateProps) {
           text={button}
           tx={buttonTx}
           txOptions={buttonTxOptions}
-          textStyle={$buttonTextStyleOverride}
+          textStyle={buttonTextStyleOverride}
           {...ButtonProps}
-          style={$buttonStyles}
+          style={buttonStyles}
         />
       )}
     </View>
   )
 }
 
-const $image: ImageStyle = { alignSelf: "center" }
-const $heading: TextStyle = { textAlign: "center", paddingHorizontal: spacing.large }
-const $content: TextStyle = { textAlign: "center", paddingHorizontal: spacing.large }
+const image: ImageStyle = { alignSelf: "center" }
+const heading: TextStyle = { textAlign: "center", paddingHorizontal: spacing.large }
+const content: TextStyle = { textAlign: "center", paddingHorizontal: spacing.large }

@@ -55,8 +55,8 @@ export function Icon(props: IconProps) {
     icon,
     color,
     size,
-    style: $imageStyleOverride,
-    containerStyle: $containerStyleOverride,
+    style: imageStyleOverride,
+    containerStyle: containerStyleOverride,
     ...WrapperProps
   } = props
 
@@ -69,14 +69,14 @@ export function Icon(props: IconProps) {
     <Wrapper
       accessibilityRole={isPressable ? "imagebutton" : undefined}
       {...WrapperProps}
-      style={$containerStyleOverride}
+      style={containerStyleOverride}
     >
       <Image
         style={[
-          $imageStyle,
+          imageStyle,
           color && { tintColor: color },
           size && { width: size, height: size },
-          $imageStyleOverride,
+          imageStyleOverride,
         ]}
         source={iconRegistry[icon]}
       />
@@ -109,6 +109,6 @@ export const iconRegistry = {
   x: require("../../assets/icons/x.png"),
 }
 
-const $imageStyle: ImageStyle = {
+const imageStyle: ImageStyle = {
   resizeMode: "contain",
 }

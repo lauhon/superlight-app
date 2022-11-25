@@ -118,24 +118,24 @@ export function ListItem(props: ListItemProps) {
     topSeparator,
     tx,
     txOptions,
-    textStyle: $textStyleOverride,
-    containerStyle: $containerStyleOverride,
+    textStyle: textStyleOverride,
+    containerStyle: containerStyleOverride,
     ...TouchableOpacityProps
   } = props
 
-  const $textStyles = [$textStyle, $textStyleOverride, TextProps?.style]
+  const textStyles = [textStyle, textStyleOverride, TextProps?.style]
 
-  const $containerStyles = [
-    topSeparator && $separatorTop,
-    bottomSeparator && $separatorBottom,
-    $containerStyleOverride,
+  const containerStyles = [
+    topSeparator && separatorTop,
+    bottomSeparator && separatorBottom,
+    containerStyleOverride,
   ]
 
-  const $touchableStyles = [$touchableStyle, { minHeight: height }, style]
+  const touchableStyles = [touchableStyle, { minHeight: height }, style]
 
   return (
-    <View style={$containerStyles}>
-      <TouchableOpacity {...TouchableOpacityProps} style={$touchableStyles}>
+    <View style={containerStyles}>
+      <TouchableOpacity {...TouchableOpacityProps} style={touchableStyles}>
         <ListItemAction
           side="left"
           size={height}
@@ -144,7 +144,7 @@ export function ListItem(props: ListItemProps) {
           Component={LeftComponent}
         />
 
-        <Text {...TextProps} tx={tx} text={text} txOptions={txOptions} style={$textStyles}>
+        <Text {...TextProps} tx={tx} text={text} txOptions={txOptions} style={textStyles}>
           {children}
         </Text>
 
@@ -163,7 +163,7 @@ export function ListItem(props: ListItemProps) {
 function ListItemAction(props: ListItemActionProps) {
   const { icon, Component, iconColor, size, side } = props
 
-  const $iconContainerStyles = [$iconContainer]
+  const iconContainerStyles = [iconContainer]
 
   if (Component) return Component
 
@@ -174,9 +174,9 @@ function ListItemAction(props: ListItemActionProps) {
         icon={icon}
         color={iconColor}
         containerStyle={[
-          $iconContainerStyles,
-          side === "left" && $iconContainerLeft,
-          side === "right" && $iconContainerRight,
+          iconContainerStyles,
+          side === "left" && iconContainerLeft,
+          side === "right" && iconContainerRight,
           { height: size },
         ]}
       />
@@ -186,37 +186,37 @@ function ListItemAction(props: ListItemActionProps) {
   return null
 }
 
-const $separatorTop: ViewStyle = {
+const separatorTop: ViewStyle = {
   borderTopWidth: 1,
   borderTopColor: colors.separator,
 }
 
-const $separatorBottom: ViewStyle = {
+const separatorBottom: ViewStyle = {
   borderBottomWidth: 1,
   borderBottomColor: colors.separator,
 }
 
-const $textStyle: TextStyle = {
+const textStyle: TextStyle = {
   paddingVertical: spacing.extraSmall,
   alignSelf: "center",
   flexGrow: 1,
   flexShrink: 1,
 }
 
-const $touchableStyle: ViewStyle = {
+const touchableStyle: ViewStyle = {
   flexDirection: "row",
   alignItems: "flex-start",
 }
 
-const $iconContainer: ViewStyle = {
+const iconContainer: ViewStyle = {
   justifyContent: "center",
   alignItems: "center",
   flexGrow: 0,
 }
-const $iconContainerLeft: ViewStyle = {
+const iconContainerLeft: ViewStyle = {
   marginEnd: spacing.medium,
 }
 
-const $iconContainerRight: ViewStyle = {
+const iconContainerRight: ViewStyle = {
   marginStart: spacing.medium,
 }

@@ -10,7 +10,7 @@ import {
 import { colors, spacing } from "../theme"
 import { Text, TextProps } from "./Text"
 
-type Presets = keyof typeof $containerPresets
+type Presets = keyof typeof containerPresets
 
 interface CardProps extends TouchableOpacityProps {
   /**
@@ -138,17 +138,17 @@ export function Card(props: CardProps) {
     LeftComponent,
     RightComponent,
     verticalAlignment = "top",
-    style: $containerStyleOverride,
-    contentStyle: $contentStyleOverride,
-    headingStyle: $headingStyleOverride,
-    footerStyle: $footerStyleOverride,
+    style: containerStyleOverride,
+    contentStyle: contentStyleOverride,
+    headingStyle: headingStyleOverride,
+    footerStyle: footerStyleOverride,
     ContentTextProps,
     HeadingTextProps,
     FooterTextProps,
     ...WrapperProps
   } = props
 
-  const preset: Presets = $containerPresets[props.preset] ? props.preset : "default"
+  const preset: Presets = containerPresets[props.preset] ? props.preset : "default"
   const isPressable = !!WrapperProps.onPress
   const isHeadingPresent = !!(HeadingComponent || heading || headingTx)
   const isContentPresent = !!(ContentComponent || content || contentTx)
@@ -157,43 +157,43 @@ export function Card(props: CardProps) {
   const Wrapper: ComponentType<TouchableOpacityProps> = isPressable ? TouchableOpacity : View
   const HeaderContentWrapper = verticalAlignment === "force-footer-bottom" ? View : Fragment
 
-  const $containerStyle = [$containerPresets[preset], $containerStyleOverride]
-  const $headingStyle = [
-    $headingPresets[preset],
+  const containerStyle = [containerPresets[preset], containerStyleOverride]
+  const headingStyle = [
+    headingPresets[preset],
     (isFooterPresent || isContentPresent) && { marginBottom: spacing.micro },
-    $headingStyleOverride,
+    headingStyleOverride,
     HeadingTextProps?.style,
   ]
-  const $contentStyle = [
-    $contentPresets[preset],
+  const contentStyle = [
+    contentPresets[preset],
     isHeadingPresent && { marginTop: spacing.micro },
     isFooterPresent && { marginBottom: spacing.micro },
-    $contentStyleOverride,
+    contentStyleOverride,
     ContentTextProps?.style,
   ]
-  const $footerStyle = [
-    $footerPresets[preset],
+  const footerStyle = [
+    footerPresets[preset],
     (isHeadingPresent || isContentPresent) && { marginTop: spacing.micro },
-    $footerStyleOverride,
+    footerStyleOverride,
     FooterTextProps?.style,
   ]
-  const $alignmentWrapperStyle = [
-    $alignmentWrapper,
-    { justifyContent: $alignmentWrapperFlexOptions[verticalAlignment] },
+  const alignmentWrapperStyle = [
+    alignmentWrapper,
+    { justifyContent: alignmentWrapperFlexOptions[verticalAlignment] },
     LeftComponent && { marginLeft: spacing.medium },
     RightComponent && { marginRight: spacing.medium },
   ]
 
   return (
     <Wrapper
-      style={$containerStyle}
+      style={containerStyle}
       activeOpacity={0.8}
       accessibilityRole={isPressable ? "button" : undefined}
       {...WrapperProps}
     >
       {LeftComponent}
 
-      <View style={$alignmentWrapperStyle}>
+      <View style={alignmentWrapperStyle}>
         <HeaderContentWrapper>
           {HeadingComponent ||
             (isHeadingPresent && (
@@ -203,7 +203,7 @@ export function Card(props: CardProps) {
                 tx={headingTx}
                 txOptions={headingTxOptions}
                 {...HeadingTextProps}
-                style={$headingStyle}
+                style={headingStyle}
               />
             ))}
 
@@ -215,7 +215,7 @@ export function Card(props: CardProps) {
                 tx={contentTx}
                 txOptions={contentTxOptions}
                 {...ContentTextProps}
-                style={$contentStyle}
+                style={contentStyle}
               />
             ))}
         </HeaderContentWrapper>
@@ -229,7 +229,7 @@ export function Card(props: CardProps) {
               tx={footerTx}
               txOptions={footerTxOptions}
               {...FooterTextProps}
-              style={$footerStyle}
+              style={footerStyle}
             />
           ))}
       </View>
@@ -239,7 +239,7 @@ export function Card(props: CardProps) {
   )
 }
 
-const $containerBase: ViewStyle = {
+const containerBase: ViewStyle = {
   borderRadius: spacing.medium,
   padding: spacing.extraSmall,
   borderWidth: 1,
@@ -252,21 +252,21 @@ const $containerBase: ViewStyle = {
   flexDirection: "row",
 }
 
-const $alignmentWrapper: ViewStyle = {
+const alignmentWrapper: ViewStyle = {
   flex: 1,
   alignSelf: "stretch",
 }
 
-const $alignmentWrapperFlexOptions = {
+const alignmentWrapperFlexOptions = {
   top: "flex-start",
   center: "center",
   "space-between": "space-between",
   "force-footer-bottom": "space-between",
 } as const
 
-const $containerPresets = {
+const containerPresets = {
   default: [
-    $containerBase,
+    containerBase,
     {
       backgroundColor: colors.palette.neutral100,
       borderColor: colors.palette.neutral300,
@@ -274,22 +274,22 @@ const $containerPresets = {
   ] as StyleProp<ViewStyle>,
 
   reversed: [
-    $containerBase,
+    containerBase,
     { backgroundColor: colors.palette.neutral800, borderColor: colors.palette.neutral500 },
   ] as StyleProp<ViewStyle>,
 }
 
-const $headingPresets: Record<Presets, TextStyle> = {
+const headingPresets: Record<Presets, TextStyle> = {
   default: {},
   reversed: { color: colors.palette.neutral100 },
 }
 
-const $contentPresets: Record<Presets, TextStyle> = {
+const contentPresets: Record<Presets, TextStyle> = {
   default: {},
   reversed: { color: colors.palette.neutral100 },
 }
 
-const $footerPresets: Record<Presets, TextStyle> = {
+const footerPresets: Record<Presets, TextStyle> = {
   default: {},
   reversed: { color: colors.palette.neutral100 },
 }

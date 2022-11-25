@@ -118,9 +118,9 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     LeftAccessory,
     HelperTextProps,
     LabelTextProps,
-    style: $inputStyleOverride,
-    containerStyle: $containerStyleOverride,
-    inputWrapperStyle: $inputWrapperStyleOverride,
+    style: inputStyleOverride,
+    containerStyle: containerStyleOverride,
+    inputWrapperStyle: inputWrapperStyleOverride,
     ...TextInputProps
   } = props
   const input = useRef<TextInput>()
@@ -131,29 +131,29 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     ? translate(placeholderTx, placeholderTxOptions)
     : placeholder
 
-  const $containerStyles = [$containerStyleOverride]
+  const containerStyles = [containerStyleOverride]
 
-  const $labelStyles = [$labelStyle, LabelTextProps?.style]
+  const labelStyles = [labelStyle, LabelTextProps?.style]
 
-  const $inputWrapperStyles = [
-    $inputWrapperStyle,
+  const inputWrapperStyles = [
+    inputWrapperStyle,
     status === "error" && { borderColor: colors.error },
     TextInputProps.multiline && { minHeight: 112 },
     LeftAccessory && { paddingStart: 0 },
     RightAccessory && { paddingEnd: 0 },
-    $inputWrapperStyleOverride,
+    inputWrapperStyleOverride,
   ]
 
-  const $inputStyles = [
-    $inputStyle,
+  const inputStyles = [
+    inputStyle,
     disabled && { color: colors.textDim },
     isRTL && { textAlign: "right" as TextStyle["textAlign"] },
     TextInputProps.multiline && { height: "auto" },
-    $inputStyleOverride,
+    inputStyleOverride,
   ]
 
-  const $helperStyles = [
-    $helperStyle,
+  const helperStyles = [
+    helperStyle,
     status === "error" && { color: colors.error },
     HelperTextProps?.style,
   ]
@@ -169,7 +169,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   return (
     <TouchableOpacity
       activeOpacity={1}
-      style={$containerStyles}
+      style={containerStyles}
       onPress={focusInput}
       accessibilityState={{ disabled }}
     >
@@ -180,14 +180,14 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           tx={labelTx}
           txOptions={labelTxOptions}
           {...LabelTextProps}
-          style={$labelStyles}
+          style={labelStyles}
         />
       )}
 
-      <View style={$inputWrapperStyles}>
+      <View style={inputWrapperStyles}>
         {!!LeftAccessory && (
           <LeftAccessory
-            style={$leftAccessoryStyle}
+            style={leftAccessoryStyle}
             status={status}
             editable={!disabled}
             multiline={TextInputProps.multiline}
@@ -202,12 +202,12 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           placeholderTextColor={colors.textDim}
           {...TextInputProps}
           editable={!disabled}
-          style={$inputStyles}
+          style={inputStyles}
         />
 
         {!!RightAccessory && (
           <RightAccessory
-            style={$rightAccessoryStyle}
+            style={rightAccessoryStyle}
             status={status}
             editable={!disabled}
             multiline={TextInputProps.multiline}
@@ -222,18 +222,18 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           tx={helperTx}
           txOptions={helperTxOptions}
           {...HelperTextProps}
-          style={$helperStyles}
+          style={helperStyles}
         />
       )}
     </TouchableOpacity>
   )
 })
 
-const $labelStyle: TextStyle = {
+const labelStyle: TextStyle = {
   marginBottom: spacing.extraSmall,
 }
 
-const $inputWrapperStyle: ViewStyle = {
+const inputWrapperStyle: ViewStyle = {
   flexDirection: "row",
   alignItems: "flex-start",
   borderWidth: 1,
@@ -243,7 +243,7 @@ const $inputWrapperStyle: ViewStyle = {
   overflow: "hidden",
 }
 
-const $inputStyle: TextStyle = {
+const inputStyle: TextStyle = {
   flex: 1,
   alignSelf: "stretch",
   fontFamily: typography.primary.normal,
@@ -257,17 +257,17 @@ const $inputStyle: TextStyle = {
   marginHorizontal: spacing.small,
 }
 
-const $helperStyle: TextStyle = {
+const helperStyle: TextStyle = {
   marginTop: spacing.extraSmall,
 }
 
-const $rightAccessoryStyle: ViewStyle = {
+const rightAccessoryStyle: ViewStyle = {
   marginEnd: spacing.extraSmall,
   height: 40,
   justifyContent: "center",
   alignItems: "center",
 }
-const $leftAccessoryStyle: ViewStyle = {
+const leftAccessoryStyle: ViewStyle = {
   marginStart: spacing.extraSmall,
   height: 40,
   justifyContent: "center",

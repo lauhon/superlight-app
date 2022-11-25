@@ -170,8 +170,8 @@ export function Toggle(props: ToggleProps) {
     helperTx,
     helperTxOptions,
     HelperTextProps,
-    containerStyle: $containerStyleOverride,
-    inputWrapperStyle: $inputWrapperStyleOverride,
+    containerStyle: containerStyleOverride,
+    inputWrapperStyle: inputWrapperStyleOverride,
     ...WrapperProps
   } = props
 
@@ -186,10 +186,10 @@ export function Toggle(props: ToggleProps) {
   )
   const ToggleInput = useMemo(() => ToggleInputs[variant] || (() => null), [variant])
 
-  const $containerStyles = [$containerStyleOverride]
-  const $inputWrapperStyles = [$inputWrapper, $inputWrapperStyleOverride]
-  const $helperStyles = [
-    $helper,
+  const containerStyles = [containerStyleOverride]
+  const inputWrapperStyles = [inputWrapper, inputWrapperStyleOverride]
+  const helperStyles = [
+    helper,
     status === "error" && { color: colors.error },
     HelperTextProps?.style,
   ]
@@ -206,10 +206,10 @@ export function Toggle(props: ToggleProps) {
       accessibilityRole={variant}
       accessibilityState={{ checked: value, disabled }}
       {...WrapperProps}
-      style={$containerStyles}
+      style={containerStyles}
       onPress={handlePress}
     >
-      <View style={$inputWrapperStyles}>
+      <View style={inputWrapperStyles}>
         {labelPosition === "left" && <FieldLabel {...props} labelPosition={labelPosition} />}
 
         <ToggleInput
@@ -233,7 +233,7 @@ export function Toggle(props: ToggleProps) {
           tx={helperTx}
           txOptions={helperTxOptions}
           {...HelperTextProps}
-          style={$helperStyles}
+          style={helperStyles}
         />
       )}
     </Wrapper>
@@ -252,9 +252,9 @@ function Checkbox(props: ToggleInputProps) {
     status,
     disabled,
     checkboxIcon,
-    outerStyle: $outerStyleOverride,
-    innerStyle: $innerStyleOverride,
-    detailStyle: $detailStyleOverride,
+    outerStyle: outerStyleOverride,
+    innerStyle: innerStyleOverride,
+    detailStyle: detailStyleOverride,
   } = props
 
   const offBackgroundColor = [
@@ -285,22 +285,22 @@ function Checkbox(props: ToggleInputProps) {
   return (
     <View
       style={[
-        $inputOuterVariants.checkbox,
+        inputOuterVariants.checkbox,
         { backgroundColor: offBackgroundColor, borderColor: outerBorderColor },
-        $outerStyleOverride,
+        outerStyleOverride,
       ]}
     >
       <Animated.View
         style={[
-          $checkboxInner,
+          checkboxInner,
           { backgroundColor: onBackgroundColor },
-          $innerStyleOverride,
+          innerStyleOverride,
           useAnimatedStyle(() => ({ opacity: withTiming(on ? 1 : 0) }), [on]),
         ]}
       >
         <Image
           source={iconRegistry[checkboxIcon] || iconRegistry.check}
-          style={[$checkboxDetail, { tintColor: iconTintColor }, $detailStyleOverride]}
+          style={[checkboxDetail, { tintColor: iconTintColor }, detailStyleOverride]}
         />
       </Animated.View>
     </View>
@@ -312,9 +312,9 @@ function Radio(props: ToggleInputProps) {
     on,
     status,
     disabled,
-    outerStyle: $outerStyleOverride,
-    innerStyle: $innerStyleOverride,
-    detailStyle: $detailStyleOverride,
+    outerStyle: outerStyleOverride,
+    innerStyle: innerStyleOverride,
+    detailStyle: detailStyleOverride,
   } = props
 
   const offBackgroundColor = [
@@ -345,22 +345,20 @@ function Radio(props: ToggleInputProps) {
   return (
     <View
       style={[
-        $inputOuterVariants.radio,
+        inputOuterVariants.radio,
         { backgroundColor: offBackgroundColor, borderColor: outerBorderColor },
-        $outerStyleOverride,
+        outerStyleOverride,
       ]}
     >
       <Animated.View
         style={[
-          $radioInner,
+          radioInner,
           { backgroundColor: onBackgroundColor },
-          $innerStyleOverride,
+          innerStyleOverride,
           useAnimatedStyle(() => ({ opacity: withTiming(on ? 1 : 0) }), [on]),
         ]}
       >
-        <View
-          style={[$radioDetail, { backgroundColor: dotBackgroundColor }, $detailStyleOverride]}
-        />
+        <View style={[radioDetail, { backgroundColor: dotBackgroundColor }, detailStyleOverride]} />
       </Animated.View>
     </View>
   )
@@ -371,18 +369,18 @@ function Switch(props: ToggleInputProps) {
     on,
     status,
     disabled,
-    outerStyle: $outerStyleOverride,
-    innerStyle: $innerStyleOverride,
-    detailStyle: $detailStyleOverride,
+    outerStyle: outerStyleOverride,
+    innerStyle: innerStyleOverride,
+    detailStyle: detailStyleOverride,
   } = props
 
   const knobSizeFallback = 2
 
-  const knobWidth = [$detailStyleOverride?.width, $switchDetail?.width, knobSizeFallback].find(
+  const knobWidth = [detailStyleOverride?.width, switchDetail?.width, knobSizeFallback].find(
     (v) => typeof v === "number",
   )
 
-  const knobHeight = [$detailStyleOverride?.height, $switchDetail?.height, knobSizeFallback].find(
+  const knobHeight = [detailStyleOverride?.height, switchDetail?.height, knobSizeFallback].find(
     (v) => typeof v === "number",
   )
 
@@ -401,14 +399,14 @@ function Switch(props: ToggleInputProps) {
   const knobBackgroundColor = (function () {
     if (on) {
       return [
-        $detailStyleOverride?.backgroundColor,
+        detailStyleOverride?.backgroundColor,
         status === "error" && colors.error,
         disabled && colors.palette.neutral600,
         colors.palette.neutral100,
       ].filter(Boolean)[0]
     } else {
       return [
-        $innerStyleOverride?.backgroundColor,
+        innerStyleOverride?.backgroundColor,
         disabled && colors.palette.neutral600,
         status === "error" && colors.error,
         colors.palette.neutral200,
@@ -416,17 +414,17 @@ function Switch(props: ToggleInputProps) {
     }
   })()
 
-  const $animatedSwitchKnob = useAnimatedStyle(() => {
-    const offsetLeft = ($innerStyleOverride?.paddingStart ||
-      $innerStyleOverride?.paddingLeft ||
-      $switchInner?.paddingStart ||
-      $switchInner?.paddingLeft ||
+  const animatedSwitchKnob = useAnimatedStyle(() => {
+    const offsetLeft = (innerStyleOverride?.paddingStart ||
+      innerStyleOverride?.paddingLeft ||
+      switchInner?.paddingStart ||
+      switchInner?.paddingLeft ||
       0) as number
 
-    const offsetRight = ($innerStyleOverride?.paddingEnd ||
-      $innerStyleOverride?.paddingRight ||
-      $switchInner?.paddingEnd ||
-      $switchInner?.paddingRight ||
+    const offsetRight = (innerStyleOverride?.paddingEnd ||
+      innerStyleOverride?.paddingRight ||
+      switchInner?.paddingEnd ||
+      switchInner?.paddingRight ||
       0) as number
 
     const start = withTiming(on ? "100%" : "0%")
@@ -438,16 +436,16 @@ function Switch(props: ToggleInputProps) {
   return (
     <View
       style={[
-        $inputOuterVariants.switch,
+        inputOuterVariants.switch,
         { backgroundColor: offBackgroundColor },
-        $outerStyleOverride,
+        outerStyleOverride,
       ]}
     >
       <Animated.View
         style={[
-          $switchInner,
+          switchInner,
           { backgroundColor: onBackgroundColor },
-          $innerStyleOverride,
+          innerStyleOverride,
           useAnimatedStyle(() => ({ opacity: withTiming(on ? 1 : 0) }), [on]),
         ]}
       />
@@ -457,9 +455,9 @@ function Switch(props: ToggleInputProps) {
 
       <Animated.View
         style={[
-          $switchDetail,
-          $detailStyleOverride,
-          $animatedSwitchKnob,
+          switchDetail,
+          detailStyleOverride,
+          animatedSwitchKnob,
           { width: knobWidth, height: knobHeight },
           { backgroundColor: knobBackgroundColor },
         ]}
@@ -475,8 +473,8 @@ function SwitchAccessibilityLabel(props: ToggleInputProps & { role: "on" | "off"
 
   const shouldLabelBeVisible = (on && role === "on") || (!on && role === "off")
 
-  const $switchAccessibilityStyle = [
-    $switchAccessibility,
+  const switchAccessibilityStyle = [
+    switchAccessibility,
     role === "off" && { end: "5%" },
     role === "on" && { left: "5%" },
   ]
@@ -489,13 +487,13 @@ function SwitchAccessibilityLabel(props: ToggleInputProps & { role: "on" | "off"
   })()
 
   return (
-    <View style={$switchAccessibilityStyle}>
+    <View style={switchAccessibilityStyle}>
       {switchAccessibilityMode === "text" && shouldLabelBeVisible && (
         <View
           style={[
-            role === "on" && $switchAccessibilityLine,
+            role === "on" && switchAccessibilityLine,
             role === "on" && { backgroundColor: color },
-            role === "off" && $switchAccessibilityCircle,
+            role === "off" && switchAccessibilityCircle,
             role === "off" && { borderColor: color },
           ]}
         />
@@ -503,7 +501,7 @@ function SwitchAccessibilityLabel(props: ToggleInputProps & { role: "on" | "off"
 
       {switchAccessibilityMode === "icon" && shouldLabelBeVisible && (
         <Image
-          style={[$switchAccessibilityIcon, { tintColor: color }]}
+          style={[switchAccessibilityIcon, { tintColor: color }]}
           source={role === "off" ? iconRegistry.hidden : iconRegistry.view}
         />
       )}
@@ -519,17 +517,17 @@ function FieldLabel(props: BaseToggleProps) {
     labelTxOptions,
     LabelTextProps,
     labelPosition,
-    labelStyle: $labelStyleOverride,
+    labelStyle: labelStyleOverride,
   } = props
 
   if (!label && !labelTx && !LabelTextProps?.children) return null
 
-  const $labelStyle = [
-    $label,
+  const labelStyle = [
+    label,
     status === "error" && { color: colors.error },
-    labelPosition === "right" && $labelRight,
-    labelPosition === "left" && $labelLeft,
-    $labelStyleOverride,
+    labelPosition === "right" && labelRight,
+    labelPosition === "left" && labelLeft,
+    labelStyleOverride,
     LabelTextProps?.style,
   ]
 
@@ -540,17 +538,17 @@ function FieldLabel(props: BaseToggleProps) {
       tx={labelTx}
       txOptions={labelTxOptions}
       {...LabelTextProps}
-      style={$labelStyle}
+      style={labelStyle}
     />
   )
 }
 
-const $inputWrapper: ViewStyle = {
+const inputWrapper: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
 }
 
-const $inputOuterBase: ViewStyle = {
+const inputOuterBase: ViewStyle = {
   height: 24,
   width: 24,
   borderWidth: 2,
@@ -562,13 +560,13 @@ const $inputOuterBase: ViewStyle = {
   flexDirection: "row",
 }
 
-const $inputOuterVariants: Record<Variants, StyleProp<ViewStyle>> = {
-  checkbox: [$inputOuterBase, { borderRadius: 4 }],
-  radio: [$inputOuterBase, { borderRadius: 12 }],
-  switch: [$inputOuterBase, { height: 32, width: 56, borderRadius: 16, borderWidth: 0 }],
+const inputOuterVariants: Record<Variants, StyleProp<ViewStyle>> = {
+  checkbox: [inputOuterBase, { borderRadius: 4 }],
+  radio: [inputOuterBase, { borderRadius: 12 }],
+  switch: [inputOuterBase, { height: 32, width: 56, borderRadius: 16, borderWidth: 0 }],
 }
 
-const $checkboxInner: ViewStyle = {
+const checkboxInner: ViewStyle = {
   width: "100%",
   height: "100%",
   alignItems: "center",
@@ -576,13 +574,13 @@ const $checkboxInner: ViewStyle = {
   overflow: "hidden",
 }
 
-const $checkboxDetail: ImageStyle = {
+const checkboxDetail: ImageStyle = {
   width: 20,
   height: 20,
   resizeMode: "contain",
 }
 
-const $radioInner: ViewStyle = {
+const radioInner: ViewStyle = {
   width: "100%",
   height: "100%",
   alignItems: "center",
@@ -590,13 +588,13 @@ const $radioInner: ViewStyle = {
   overflow: "hidden",
 }
 
-const $radioDetail: ViewStyle = {
+const radioDetail: ViewStyle = {
   width: 12,
   height: 12,
   borderRadius: 6,
 }
 
-const $switchInner: ViewStyle = {
+const switchInner: ViewStyle = {
   width: "100%",
   height: "100%",
   alignItems: "center",
@@ -607,47 +605,47 @@ const $switchInner: ViewStyle = {
   paddingEnd: 4,
 }
 
-const $switchDetail: SwitchToggleProps["inputDetailStyle"] = {
+const switchDetail: SwitchToggleProps["inputDetailStyle"] = {
   borderRadius: 12,
   position: "absolute",
   width: 24,
   height: 24,
 }
 
-const $helper: TextStyle = {
+const helper: TextStyle = {
   marginTop: spacing.extraSmall,
 }
 
-const $label: TextStyle = {
+const label: TextStyle = {
   flex: 1,
 }
 
-const $labelRight: TextStyle = {
+const labelRight: TextStyle = {
   marginLeft: spacing.medium,
 }
 
-const $labelLeft: TextStyle = {
+const labelLeft: TextStyle = {
   marginRight: spacing.medium,
 }
 
-const $switchAccessibility: TextStyle = {
+const switchAccessibility: TextStyle = {
   width: "40%",
   justifyContent: "center",
   alignItems: "center",
 }
 
-const $switchAccessibilityIcon: ImageStyle = {
+const switchAccessibilityIcon: ImageStyle = {
   width: 14,
   height: 14,
   resizeMode: "contain",
 }
 
-const $switchAccessibilityLine: ViewStyle = {
+const switchAccessibilityLine: ViewStyle = {
   width: 2,
   height: 12,
 }
 
-const $switchAccessibilityCircle: ViewStyle = {
+const switchAccessibilityCircle: ViewStyle = {
   borderWidth: 2,
   width: 12,
   height: 12,

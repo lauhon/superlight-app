@@ -1,9 +1,7 @@
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import {
-  Text,
-} from "../components"
+import { Text } from "../components"
 import { isRTL } from "../i18n"
 import { colors, spacing } from "../theme"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
@@ -11,39 +9,36 @@ import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
 
-
-export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen(
-) {
-
-  const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
+export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen() {
+  const bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 
   return (
-    <View style={$container}>
-      <View style={$topContainer}>
-        <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
+    <View style={container}>
+      <View style={topContainer}>
+        <Image style={welcomeLogo} source={welcomeLogo} resizeMode="contain" />
         <Text
           testID="welcome-heading"
-          style={$welcomeHeading}
+          style={welcomeHeading}
           tx="welcomeScreen.readyForLaunch"
           preset="heading"
         />
         <Text tx="welcomeScreen.exciting" preset="subheading" />
-        <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
+        <Image style={welcomeFace} source={welcomeFace} resizeMode="contain" />
       </View>
 
-      <View style={[$bottomContainer, $bottomContainerInsets]}>
+      <View style={[bottomContainer, bottomContainerInsets]}>
         <Text tx="welcomeScreen.postscript" size="md" />
       </View>
     </View>
   )
 })
 
-const $container: ViewStyle = {
+const container: ViewStyle = {
   flex: 1,
   backgroundColor: colors.background,
 }
 
-const $topContainer: ViewStyle = {
+const topContainer: ViewStyle = {
   flexShrink: 1,
   flexGrow: 1,
   flexBasis: "57%",
@@ -51,7 +46,7 @@ const $topContainer: ViewStyle = {
   paddingHorizontal: spacing.large,
 }
 
-const $bottomContainer: ViewStyle = {
+const bottomContainer: ViewStyle = {
   flexShrink: 1,
   flexGrow: 0,
   flexBasis: "43%",
@@ -61,13 +56,13 @@ const $bottomContainer: ViewStyle = {
   paddingHorizontal: spacing.large,
   justifyContent: "space-around",
 }
-const $welcomeLogo: ImageStyle = {
+const welcomeLogo: ImageStyle = {
   height: 88,
   width: "100%",
   marginBottom: spacing.huge,
 }
 
-const $welcomeFace: ImageStyle = {
+const welcomeFace: ImageStyle = {
   height: 169,
   width: 269,
   position: "absolute",
@@ -76,6 +71,6 @@ const $welcomeFace: ImageStyle = {
   transform: [{ scaleX: isRTL ? -1 : 1 }],
 }
 
-const $welcomeHeading: TextStyle = {
+const welcomeHeading: TextStyle = {
   marginBottom: spacing.medium,
 }

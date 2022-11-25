@@ -160,18 +160,18 @@ export function Header(props: HeaderProps) {
     titleMode = "center",
     titleTx,
     titleTxOptions,
-    style: $styleOverride,
-    titleStyle: $titleStyleOverride,
-    containerStyle: $containerStyleOverride,
+    style: styleOverride,
+    titleStyle: titleStyleOverride,
+    containerStyle: containerStyleOverride,
   } = props
 
-  const $containerInsets = useSafeAreaInsetsStyle(safeAreaEdges)
+  const containerInsets = useSafeAreaInsetsStyle(safeAreaEdges)
 
   const titleContent = titleTx ? translate(titleTx, titleTxOptions) : title
 
   return (
-    <View style={[$container, $containerInsets, { backgroundColor }, $containerStyleOverride]}>
-      <View style={[$wrapper, $styleOverride]}>
+    <View style={[container, containerInsets, { backgroundColor }, containerStyleOverride]}>
+      <View style={[wrapper, styleOverride]}>
         <HeaderAction
           tx={leftTx}
           text={leftText}
@@ -189,9 +189,9 @@ export function Header(props: HeaderProps) {
             size="md"
             text={titleContent}
             style={[
-              titleMode === "center" && $centerTitle,
-              titleMode === "flex" && $flexTitle,
-              $titleStyleOverride,
+              titleMode === "center" && centerTitle,
+              titleMode === "flex" && flexTitle,
+              titleStyleOverride,
             ]}
           />
         )}
@@ -221,12 +221,12 @@ function HeaderAction(props: HeaderActionProps) {
   if (content) {
     return (
       <TouchableOpacity
-        style={[$actionTextContainer, { backgroundColor }]}
+        style={[actionTextContainer, { backgroundColor }]}
         onPress={onPress}
         disabled={!onPress}
         activeOpacity={0.8}
       >
-        <Text weight="medium" size="md" text={content} style={$actionText} />
+        <Text weight="medium" size="md" text={content} style={actionText} />
       </TouchableOpacity>
     )
   }
@@ -238,27 +238,27 @@ function HeaderAction(props: HeaderActionProps) {
         icon={icon}
         color={iconColor}
         onPress={onPress}
-        containerStyle={[$actionIconContainer, { backgroundColor }]}
+        containerStyle={[actionIconContainer, { backgroundColor }]}
         style={isRTL ? { transform: [{ rotate: "180deg" }] } : {}}
       />
     )
   }
 
-  return <View style={[$actionFillerContainer, { backgroundColor }]} />
+  return <View style={[actionFillerContainer, { backgroundColor }]} />
 }
 
-const $wrapper: ViewStyle = {
+const wrapper: ViewStyle = {
   height: 56,
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
 }
 
-const $container: ViewStyle = {
+const container: ViewStyle = {
   width: "100%",
 }
 
-const $centerTitle: TextStyle = {
+const centerTitle: TextStyle = {
   position: "absolute",
   width: "100%",
   textAlign: "center",
@@ -266,12 +266,12 @@ const $centerTitle: TextStyle = {
   zIndex: 1,
 }
 
-const $flexTitle: TextStyle = {
+const flexTitle: TextStyle = {
   flex: 1,
   textAlign: "center",
 }
 
-const $actionTextContainer: ViewStyle = {
+const actionTextContainer: ViewStyle = {
   flexGrow: 0,
   alignItems: "center",
   justifyContent: "center",
@@ -280,11 +280,11 @@ const $actionTextContainer: ViewStyle = {
   zIndex: 2,
 }
 
-const $actionText: TextStyle = {
+const actionText: TextStyle = {
   color: colors.tint,
 }
 
-const $actionIconContainer: ViewStyle = {
+const actionIconContainer: ViewStyle = {
   flexGrow: 0,
   alignItems: "center",
   justifyContent: "center",
@@ -293,6 +293,6 @@ const $actionIconContainer: ViewStyle = {
   zIndex: 2,
 }
 
-const $actionFillerContainer: ViewStyle = {
+const actionFillerContainer: ViewStyle = {
   width: 16,
 }
